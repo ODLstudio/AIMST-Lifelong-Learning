@@ -6,6 +6,7 @@
   <title>AIMST Lifelong Learning - Interactive Course Explorer</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
@@ -1029,203 +1030,6 @@
       font_size: 16
     };
 
-    // Comprehensive course database
-    const coursesDatabase = [
-      // ODL Programs
-      { id: 1, name: 'Master of Business Administration (MBA)', category: 'ODL', badge: 'Open Distance Learning', image: 'assets/programs/mba.jpg', description: 'The MBA program at AIMST is designed for working professionals seeking advanced business knowledge. This comprehensive 2-year program covers strategic management, finance, entrepreneurship, and organizational leadership through online learning modules and virtual case studies.', outline: ['• Strategic Management & Business Policy', '• Financial Management & Analysis', '• Marketing Strategy & Consumer Behavior', '• Organizational Leadership & Change Management', '• Global Business & International Trade', '• Capstone Project & Thesis', '• Duration: 24 months', '• Assessment: Assignments, Exams, Project'], careers: ['Business Manager', 'Executive Director', 'Management Consultant', 'Entrepreneur', 'Financial Analyst', 'Corporate Strategist', 'Operations Manager'] },
-      { id: 2, name: 'Bachelor in Nursing Science (Honours)', category: 'ODL', badge: 'Open Distance Learning', image: 'assets/programs/bns.jpg', description: 'This comprehensive nursing degree combines theoretical knowledge with practical clinical skills. Students learn patient care, medical ethics, and public health through online lectures, virtual labs, and supervised clinical placements.', outline: ['• Fundamentals of Nursing Practice', '• Anatomy, Physiology & Pathology', '• Pharmacology & Drug Therapeutics', '• Clinical Assessment & Diagnosis', '• Mental Health & Psychiatric Nursing', '• Community Health Nursing', '• Duration: 36 months', '• Assessment: Practicals, Clinical Hours, Thesis'], careers: ['Registered Nurse', 'Clinical Nurse Specialist', 'Nurse Manager', 'Public Health Nurse', 'Nurse Educator', 'Hospital Administrator', 'Healthcare Consultant'] },
-      
-      // Microcredentials
-      { id: 3, name: 'Diploma in Electrical and Electronic Engineering', category: 'Micro', badge: 'Microcredential', image: 'assets/programs/eee.jpg', description: 'A specialized diploma covering electrical systems, circuit design, and electronic components. Perfect for professionals seeking advanced technical credentials in engineering fields.', outline: ['• Circuit Analysis & Design', '• Power Systems Engineering', '• Electronic Devices & Applications', '• Digital Electronics', '• Microcontroller Programming', '• Project Design & Implementation', '• Duration: 12 weeks', '• Assessment: Lab Work, Exams, Project'], careers: ['Electrical Engineer', 'Electronics Technician', 'Power Systems Specialist', 'Systems Integrator', 'Technical Manager'] },
-      { id: 4, name: 'Diploma in Physiotherapy', category: 'Micro', badge: 'Microcredential', image: 'assets/programs/physiotherapy.jpg', description: 'Gain professional credentials in physiotherapy with focus on rehabilitation, patient care, and therapeutic techniques. Includes both theoretical and practical components.', outline: ['• Human Anatomy & Kinesiology', '• Physical Rehabilitation Techniques', '• Pain Management & Treatment', '• Patient Assessment Methods', '• Therapeutic Exercise Programs', '• Clinical Internship', '• Duration: 14 weeks', '• Assessment: Practicals, Case Studies, Thesis'], careers: ['Physiotherapist', 'Rehabilitation Specialist', 'Sports Medicine Professional', 'Clinical Therapist', 'Hospital Manager'] },
-      { id: 5, name: 'Bachelor of Science (Honours) Biotechnology', category: 'Micro', badge: 'Microcredential',  image: 'assets/programs/biotechnology.jpg', description: 'Comprehensive study of biotechnology applications in healthcare, agriculture, and industry. Covers genetic engineering, bioinformatics, and cutting-edge research methodologies.', outline: ['• Molecular Biology & Genetics', '• Genetic Engineering & Cloning', '• Bioinformatics & Data Analysis', '• Pharmaceutical Biotechnology', '• Industrial Applications', '• Research Thesis', '• Duration: 24 months', '• Assessment: Lab Reports, Exams, Thesis'], careers: ['Biotech Researcher', 'Pharmaceutical Scientist', 'Genetic Counselor', 'Lab Manager', 'Quality Assurance Specialist'] },
-      { id: 6, name: 'Bachelor of Physiotherapy (Hons)', category: 'Micro', badge: 'Microcredential',  image: 'assets/programs/physiotherapy2.jpg', description: 'An advanced degree in physiotherapy with specializations in sports medicine, orthopedics, and clinical practice. Combines theoretical knowledge with extensive clinical experience.', outline: ['• Advanced Physiology & Biomechanics', '• Sports Injury Management', '• Orthopedic Rehabilitation', '• Neuromuscular Therapy', '• Clinical Practice & Internship', '• Research Dissertation', '• Duration: 36 months', '• Assessment: Clinical Hours, Exams, Thesis'], careers: ['Senior Physiotherapist', 'Sports Medicine Specialist', 'Clinical Director', 'University Lecturer', 'Research Scientist'] },
-      { id: 7, name: 'Bachelor of Dental Technology (Honours)', category: 'Micro', badge: 'Microcredential',  image: 'assets/programs/dental_tech.jpg', description: 'Specialized program in dental prosthetics and laboratory technology. Covers design, manufacturing, and quality control of dental appliances and restorations.', outline: ['• Dental Materials Science', '• Prosthetic Design & Fabrication', '• Digital Dentistry & CAD/CAM', '• Quality Control Methods', '• Dental Lab Management', '• Advanced Practicum', '• Duration: 24 months', '• Assessment: Lab Work, Exams, Portfolio'], careers: ['Dental Technician', 'Lab Director', 'CAD/CAM Specialist', 'Prosthetics Designer', 'Technical Manager'] },
-      { id: 8, name: 'Bachelor of Computer Science', category: 'Micro', badge: 'Microcredential',  image: 'assets/programs/cs.jpg', description: 'Comprehensive computing degree covering software development, web technologies, databases, and emerging tech. Prepares graduates for diverse IT careers in industry and innovation.', outline: ['• Programming Fundamentals & OOP', '• Web Development & Frameworks', '• Database Design & Management', '• Cloud Computing & DevOps', '• Cybersecurity Essentials', '• Capstone Project', '• Duration: 24 months', '• Assessment: Coding Assignments, Exams, Project'], careers: ['Software Developer', 'Web Developer', 'Systems Analyst', 'IT Manager', 'Cloud Architect'] },
-      { id: 9, name: 'Master in Business Administration', category: 'Micro', badge: 'Microcredential',  image: 'assets/programs/mba2.jpg', description: 'Advanced MBA program with concentration options in finance, marketing, or operations. Designed for experienced professionals and aspiring executives.', outline: ['• Business Analytics & Strategy', '• Advanced Finance & Investment', '• Digital Marketing & E-Commerce', '• Supply Chain Management', '• Leadership & Organizational Change', '• Executive Thesis', '• Duration: 18 months', '• Assessment: Exams, Projects, Presentations'], careers: ['Chief Executive Officer', 'Chief Financial Officer', 'Management Director', 'Business Consultant', 'Investment Manager'] },
-      { id: 10, name: 'Master in Physiotherapy (Musculoskeletal)', category: 'Micro', badge: 'Microcredential',  image: 'assets/programs/physiotherapy3.jpg', description: 'Specialized master program focusing on musculoskeletal disorders, advanced treatment techniques, and research in physiotherapy. For professionals seeking specialization.', outline: ['• Advanced Musculoskeletal Assessment', '• Orthopedic Surgery Principles', '• Advanced Manual Therapy', '• Evidence-Based Practice', '• Clinical Research Methods', '• Thesis in Specialization', '• Duration: 18 months', '• Assessment: Clinical Cases, Exams, Research'], careers: ['Musculoskeletal Specialist', 'Orthopedic Consultant', 'Clinical Researcher', 'Healthcare Director', 'University Professor'] },
-
-      // Certifications
-      {
-        id: 11,
-        name: "Certification Programme in Machine Learning",
-        category: "Cert",
-        badge: "Certification Programme",
-        image: "assets/programs/ml.jpg",
-
-        description: "This course provides a deep dive into the fundamental concepts and practical techniques essential for understanding and implementing machine learning algorithms...",
-
-        outline: [
-          "Mathematical Basics 1 - Introduction to Machine Learning, Linear Algebra",
-          "Mathematical Basics 2 - Probability",
-          "Computational Basics - Numerical Computation and Optimization",
-          "Linear & Logistic Regression",
-          "Neural Networks",
-          "Convolutional Neural Networks 1",
-          "Convolutional Neural Networks 2",
-          "Recurrent Neural Networks (RNN, LSTM, GRU)",
-          "Classical Techniques 1",
-          "Classical Techniques 2"
-        ],
-
-        trainer: {
-          image: "assets/trainers/raman.jpg",
-          name: "Mr. Raman Raguraman",
-          qualifications: "Chartered Engineer - Engineering Council UK, M.Eng Power Systems, Certification in ML, Deep Learning (IIT Madras)",
-          department: "Faculty of Engineering and Computer Technology"
-        },
-
-        careerDescription: "A Certification Programme in Machine Learning equips students with knowledge and skills in data analysis and predictive modeling.",
-
-        careers: [
-          "Machine Learning Engineer",
-          "Data Scientist",
-          "AI Research Scientist",
-          "Data Analyst",
-          "Business Intelligence Developer",
-          "Computer Vision Engineer",
-          "NLP Engineer",
-          "Robotics Engineer",
-          "Big Data Engineer",
-          "Quantitative Analyst",
-          "Software Engineer (ML Focus)",
-          "Data Engineer",
-          "AI Product Manager",
-          "Deep Learning Specialist",
-          "AI Ethics Specialist",
-          "Automation Engineer"
-        ]
-      },
-      { id: 12, name: 'Foundational AR Development Using Unity', category: 'Cert', badge: 'Certification Programme',  image: 'assets/programs/ar.jpg', description: 'Learn to develop augmented reality applications using the Unity game engine. Covers AR kit integration, 3D modeling, interaction design, and mobile deployment.', outline: ['• Unity Engine Fundamentals', '• AR Kit & Platform Integration', '• 3D Modeling & Animation', '• Interaction Design for AR', '• Mobile App Development', '• AR Project Deployment', '• Duration: 8 weeks', '• Assessment: Projects, Code Review, Final App'], careers: ['AR Developer', 'Game Developer', 'Mixed Reality Engineer', 'Technical Artist', 'Product Designer'] },
-      { id: 13, name: 'Internet of Things (IoT)', category: 'Cert', badge: 'Certification Programme', image: 'assets/programs/iot.jpg', description: 'Comprehensive certification in IoT technologies including sensors, connectivity, cloud platforms, and embedded systems. Hands-on projects with real IoT hardware.', outline: ['• IoT Architecture & Protocols', '• Sensors & Embedded Systems', '• Cloud Platforms & Edge Computing', '• Data Analytics for IoT', '• Security & Privacy', '• IoT Solution Design', '• Duration: 10 weeks', '• Assessment: Lab Work, Projects, Capstone'], careers: ['IoT Engineer', 'Systems Architect', 'Hardware Developer', 'Solutions Engineer', 'Technical Specialist'] },
-      { id: 14, name: 'Accounting & Finance for Managers', category: 'Cert', badge: 'Certification Programme',  image: 'assets/programs/accounting.jpg', description: 'Essential financial literacy for managers and leaders. Covers financial statements, budgeting, cost analysis, and strategic financial decision-making.', outline: ['• Financial Statement Analysis', '• Cost Accounting & Budgeting', '• Forecasting & Planning', '• Working Capital Management', '• Investment Decision Analysis', '• Financial Reporting', '• Duration: 6 weeks', '• Assessment: Exams, Case Studies, Reports'], careers: ['Financial Manager', 'CFO', 'Business Analyst', 'Controller', 'Finance Director'] },
-      { id: 15, name: 'HR Management', category: 'Cert', badge: 'Certification Programme',  image: 'assets/programs/hr.jpg', description: 'Professional HR certification covering recruitment, employee relations, compensation, training, and organizational development for HR professionals and managers.', outline: ['• Recruitment & Selection Strategies', '• Employee Relations & Engagement', '• Compensation & Benefits Management', '• Training & Development Programs', '• Performance Management Systems', '• HR Analytics', '• Duration: 8 weeks', '• Assessment: Exams, Projects, Case Studies'], careers: ['HR Manager', 'Talent Acquisition Lead', 'HR Consultant', 'Organizational Development Manager', 'HR Director'] },
-      { id: 16, name: 'Management Information System (MIS)', category: 'Cert', badge: 'Certification Programme',  image: 'assets/programs/mis.jpg', description: 'Comprehensive certification in IT management, system architecture, database management, and business intelligence tools for organizational efficiency.', outline: ['• Enterprise System Architecture', '• Database Design & Management', '• Business Intelligence & Analytics', '• IT Project Management', '• Systems Integration', '• IT Strategy', '• Duration: 10 weeks', '• Assessment: Projects, Exams, Case Studies'], careers: ['IT Manager', 'Systems Manager', 'Business Analyst', 'Solutions Architect', 'CIO'] },
-      { id: 17, name: 'Disaster Management', category: 'Cert', badge: 'Certification Programme',  image: 'assets/programs/disaster.jpg', description: 'Professional certification in disaster preparedness, emergency response, and recovery management. Covers risk assessment, mitigation strategies, and crisis communication.', outline: ['• Disaster Risk Assessment', '• Emergency Response Planning', '• Mitigation & Prevention Strategies', '• Crisis Communication', '• Recovery & Rehabilitation', '• International Frameworks', '• Duration: 8 weeks', '• Assessment: Exams, Simulations, Projects'], careers: ['Emergency Manager', 'Risk Analyst', 'Disaster Coordinator', 'Policy Advisor', 'Resilience Officer'] },
-      { id: 18, name: 'Health & Safety', category: 'Cert', badge: 'Certification Programme',  image: 'assets/programs/health&safety.jpg', description: 'Occupational health and safety certification covering workplace hazards, safety regulations, risk management, and employee wellbeing programs.', outline: ['• Occupational Safety Standards', '• Hazard Identification & Control', '• Risk Assessment Methods', '• Incident Investigation', '• Safety Culture Development', '• Compliance & Regulations', '• Duration: 6 weeks', '• Assessment: Exams, Audits, Reports'], careers: ['Safety Officer', 'EHS Manager', 'Compliance Officer', 'Health Consultant', 'Auditor'] },
-      { id: 19, name: 'Men & Women\'s Health', category: 'Cert', badge: 'Certification Programme',  image: 'assets/programs/mw.jpg', description: 'Specialized certification in gender-specific health issues. Covers reproductive health, lifecycle health considerations, and specialized care delivery.', outline: ['• Reproductive Health Essentials', '• Maternal & Child Health', '• Menopause & Aging', '• Gender-Specific Diseases', '• Holistic Care Approaches', '• Health Education', '• Duration: 8 weeks', '• Assessment: Exams, Case Studies, Practicum'], careers: ['Health Educator', 'Clinical Specialist', 'Public Health Officer', 'Healthcare Counselor', 'Program Manager'] },
-      { id: 20, name: 'Cardiac Rehabilitation', category: 'Cert', badge: 'Certification Programme',  image: 'assets/programs/cr.jpg', description: 'Advanced certification for healthcare professionals in cardiac recovery and rehabilitation. Covers exercise prescription, psychological support, and patient management.', outline: ['• Cardiac Physiology & Pathology', '• Exercise Prescription Guidelines', '• Psychological Support Strategies', '• Patient Assessment & Monitoring', '• Lifestyle Modification Programs', '• Complication Management', '• Duration: 10 weeks', '• Assessment: Exams, Clinical Cases, Practicum'], careers: ['Cardiac Specialist', 'Rehabilitation Therapist', 'Exercise Physiologist', 'Clinic Manager', 'Patient Educator'] },
-
-      // Short Courses
-      { id: 21, name: 'Outcome-Based Education (OBE)', category: 'Short', badge: 'Short Course',  image: 'assets/programs/obe.jpg', description: 'Learn the principles and implementation of outcome-based education. Designed for educators and training developers seeking to improve learning effectiveness.', outline: ['• OBE Principles & Framework', '• Learning Outcome Design', '• Assessment Methods', '• Curriculum Development', '• Implementation Strategies', '• Evaluation & Improvement', '• Duration: 4 weeks', '• Assessment: Assignments, Project'], careers: ['Educator', 'Curriculum Designer', 'Training Manager', 'Quality Assurance Officer', 'Educational Consultant'] },
-      { id: 22, name: 'Understanding ISO 14001:2015 Requirements', category: 'Short', badge: 'Short Course',  image: 'assets/programs/enviso.jpg', description: 'Comprehensive short course on environmental management systems and ISO 14001:2015 standards. Perfect for organizations implementing EMS.', outline: ['• ISO 14001 Standard Overview', '• Environmental Aspects & Impacts', '• Risk & Opportunity Assessment', '• Implementation Framework', '• Documentation Requirements', '• Audit Preparation', '• Duration: 4 weeks', '• Assessment: Exams, Documentation Plan'], careers: ['EMS Auditor', 'Compliance Officer', 'Environment Manager', 'Quality Assurance Lead', 'Consultant'] },
-      { id: 23, name: 'Building a High-Performance Entrepreneurial Team', category: 'Short', badge: 'Short Course',  image: 'assets/programs/bhpet.jpg', description: 'Intensive workshop on team building, leadership, and entrepreneurial culture. Ideal for startup founders and business leaders.', outline: ['• Team Dynamics & Psychology', '• Leadership Styles for Startups', '• Organizational Culture Building', '• Motivation & Performance', '• Conflict Resolution', '• Team Development Exercises', '• Duration: 6 weeks', '• Assessment: Group Projects, Presentations'], careers: ['Startup Founder', 'Team Leader', 'Entrepreneur', 'HR Manager', 'Business Coach'] },
-      { id: 24, name: 'Building a Sustainable Future: ESG Awareness', category: 'Short', badge: 'Short Course',  image: 'assets/programs/esg.jpg', description: 'Short course on Environmental, Social, and Governance (ESG) principles. Learn how organizations can achieve sustainability and positive impact.', outline: ['• ESG Framework Overview', '• Environmental Sustainability', '• Social Responsibility', '• Corporate Governance', '• Impact Measurement', '• Implementation Roadmap', '• Duration: 5 weeks', '• Assessment: Case Studies, Proposal'], careers: ['Sustainability Officer', 'ESG Analyst', 'CSR Manager', 'Policy Advisor', 'Impact Manager'] },
-      { id: 25, name: 'ISO 14001:2015 Awareness - Environmental Aspects', category: 'Short', badge: 'Short Course',  image: 'assets/programs/envasp.jpg', description: 'Focused awareness training on ISO 14001:2015 environmental aspects and social impacts. Quick course for employees and new team members.', outline: ['• Environmental Aspects Definition', '• Identifying Impacts', '• Social Responsibility Elements', '• Compliance Requirements', '• Workplace Application', '• Best Practices', '• Duration: 3 weeks', '• Assessment: Quiz, Workshop Participation'], careers: ['Compliance Officer', 'EMS Coordinator', 'Environmental Technician', 'Quality Officer', 'Safety Officer'] }
-    ];
-
-   function renderCourses(filter = '', search = '') {
-        const grid = document.getElementById('courses-grid');
-        if (!grid) return;
-
-        let filtered = coursesDatabase;
-
-        if (filter) filtered = filtered.filter(c => c.category === filter);
-        if (search) filtered = filtered.filter(c =>
-            (c.name || '').toLowerCase().includes(search.toLowerCase())
-        );
-
-        grid.innerHTML = filtered.map(course => `
-            <div
-            class="program-card card-hover rounded-2xl p-6 backdrop-blur cursor-pointer"
-            style="--bg:url('${course.image || 'assets/programs/default.jpg'}');"
-            data-course-id="${course.id}"
-            >
-            <div class="program-card-content">
-                <div class="course-badge ${getCategoryColor(course.category)} mb-3">${course.badge || ''}</div>
-
-                <h3 class="program-card-title text-lg font-bold mb-2">
-                ${course.name || ''}
-                </h3>
-
-                <p class="program-card-desc text-sm mb-4 line-clamp-2">
-                ${course.description || ''}
-                </p>
-
-                <div class="flex items-center justify-between">
-                <span class="program-card-link text-sm font-semibold">View Details</span>
-                <svg class="w-4 h-4 program-card-link" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                </div>
-            </div>
-            </div>
-        `).join('');
-
-        grid.querySelectorAll('[data-course-id]').forEach(card => {
-            card.addEventListener('click', () => {
-            const courseId = parseInt(card.dataset.courseId, 10);
-            const course = coursesDatabase.find(c => c.id === courseId);
-            if (course) openCourseModal(course);
-            });
-        });
-    } 
-   
-    function getCategoryColor(category) {
-        const colors = {
-            ODL: 'bg-[rgba(39,171,171,0.14)] text-[#27abab] border border-[rgba(39,171,171,0.25)]',
-            Micro: 'bg-[rgba(214,181,107,0.16)] text-[rgba(125,92,20,0.95)] border border-[rgba(214,181,107,0.30)]',
-            Cert: 'bg-[rgba(39,171,171,0.10)] text-[#1f8f8f] border border-[rgba(39,171,171,0.18)]',
-            Short: 'bg-[rgba(214,181,107,0.14)] text-[rgba(125,92,20,0.95)] border border-[rgba(214,181,107,0.26)]'
-        };
-        return colors[category] || 'bg-slate-100 text-slate-700 border border-slate-200';
-    }
-
-    
-
-    function openCourseModal(course) {
-      document.getElementById('modal-badge').textContent = course.badge;
-      document.getElementById('modal-badge').className = `course-badge ${getCategoryColor(course.category)}`;
-      document.getElementById('modal-title').textContent = course.name;
-      document.getElementById("modal-description").innerText = course.description || "";
-
-      // outline (safe)
-      const outlineContainer = document.getElementById("modal-outline");
-      outlineContainer.innerHTML = (course.outline || []).map(item =>
-        `<div class="bg-emerald-600 p-4 rounded-lg text-sm">${item}</div>`
-      ).join("");
-
-
-
-      // career description (safe)
-      document.getElementById("career-description").innerText = course.careerDescription || "";
-
-      // careers list (safe)
-      const careerList = document.getElementById("career-list");
-      careerList.innerHTML = (course.careers || []).map(career =>
-        `<div class="bg-emerald-600  p-4 rounded-lg text-sm">${career}</div>`
-      ).join("");
-
-      document.getElementById("course-modal").classList.remove("hidden");
-    }
-
-
-    function closeCourseModal() {
-      document.getElementById('course-modal').classList.add('hidden');
-    }
-
-    // Modal controls
-    document.getElementById('close-modal').addEventListener('click', closeCourseModal);
-    document.getElementById('course-modal').addEventListener('click', (e) => {
-      if (e.target.id === 'course-modal') closeCourseModal();
-    });
-    document.getElementById('modal-apply').addEventListener('click', () => {
-      closeCourseModal();
-      document.getElementById('contact-form').scrollIntoView({ behavior: 'smooth' });
-    });
-
-    // Search and filter
-    document.getElementById('course-search').addEventListener('input', (e) => {
-      const search = e.target.value;
-      const filter = document.getElementById('category-filter').value;
-      renderCourses(filter, search);
-    });
-
-    document.getElementById('category-filter').addEventListener('change', (e) => {
-      const filter = e.target.value;
-      const search = document.getElementById('course-search').value;
-      renderCourses(filter, search);
-    });
 
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -1242,14 +1046,37 @@
       });
     });
 
-    // Form submission
-    const contactForm = document.getElementById('contact-form');
-    const formSuccess = document.getElementById('form-success');
-    
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      contactForm.classList.add('hidden');
-      formSuccess.classList.remove('hidden');
+     emailjs.init("YOUR_PUBLIC_KEY");
+
+    document.getElementById("contact-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+      const btn = this.querySelector("button");
+      btn.innerText = "Sending...";
+
+      const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        program: document.getElementById("program").value,
+      };
+
+      // Send to FIRST email
+      emailjs.send("YOUR_SERVICE_ID", "TEMPLATE_1_ID", formData)
+        .then(() => {
+          // Send to SECOND email
+          return emailjs.send("YOUR_SERVICE_ID", "TEMPLATE_2_ID", formData);
+        })
+        .then(() => {
+          alert("Application submitted successfully!");
+          document.getElementById("contact-form").reset();
+          btn.innerText = "Submit Application";
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Something went wrong. Please try again.");
+          btn.innerText = "Submit Application";
+        });
     });
 
     // Element SDK initialization
