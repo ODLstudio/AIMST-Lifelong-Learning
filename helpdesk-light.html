@@ -506,23 +506,6 @@
         }
       });
 
-      // Handle form submission
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        if (!category.value) {
-          error.classList.remove("hidden");
-          category.classList.remove("border-slate-600");
-          category.classList.add("border-red-500");
-          category.focus();
-          return;
-        }
-
-        // Simulate success (frontend demo)
-        form.classList.add("hidden");
-        success.classList.remove("hidden");
-      });
-
     });
     </script>
 
