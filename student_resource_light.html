@@ -542,15 +542,7 @@
       font_size: 16
     };
 
- 
-
-    document.getElementById('category-filter').addEventListener('change', (e) => {
-      const filter = e.target.value;
-      const search = document.getElementById('course-search').value;
-      renderCourses(filter, search);
-    });
-
-    // Mobile menu toggle
+        // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     
@@ -564,6 +556,16 @@
         mobileMenu.classList.add('hidden');
       });
     });
+
+ 
+
+    document.getElementById('category-filter').addEventListener('change', (e) => {
+      const filter = e.target.value;
+      const search = document.getElementById('course-search').value;
+      renderCourses(filter, search);
+    });
+
+  
 
     // Form submission
     const contactForm = document.getElementById('contact-form');
