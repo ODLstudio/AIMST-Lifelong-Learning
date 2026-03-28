@@ -1048,37 +1048,40 @@
 
     emailjs.init("bMi8_CHD0NJyGs6gb");
 
-    document.getElementById("contact-form").addEventListener("submit", function(e) {
+    const form = document.getElementById("contact-form");
+
+    form.addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const btn = this.querySelector("button");
-      btn.innerText = "Sending...";
+      const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
+      btn.innerText = "Sending...";
 
       const formData = {
         name: document.getElementById("name").value,
         email: document.getElementById("email").value,
         phone: document.getElementById("phone").value,
-        program: document.getElementById("program").value,
+        program: document.getElementById("program").value
       };
 
       emailjs.send("service_muajyef", "template_nbxmp4m", formData)
-        // 2️⃣ Send auto-reply to USER
         .then(() => {
           return emailjs.send("service_muajyef", "template_atgrujf", formData);
         })
-
         .then(() => {
-          btn.innerText = "✔ Submitted!";
-          document.getElementById("contact-form").reset();
+          btn.innerText = "Submitted Successfully!";
+          form.reset();
         })
         .catch((error) => {
           console.error(error);
-          btn.innerText = "Submit Application";
           btn.disabled = false;
+          btn.innerText = "Submit Application";
           alert("Something went wrong. Please try again.");
         });
     });
+
+ 
+
 
     
     
