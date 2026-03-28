@@ -626,20 +626,32 @@
       renderCourses(filter, search);
     });
 
-        // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
+    // -----------------------
+      // Mobile menu toggle (SAFE)
+      // -----------------------
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
 
-    // Close mobile menu when clicking a link
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-      });
-    });
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener("click", () => {
+          const isHidden = mobileMenu.classList.toggle("hidden");
+          mobileMenuBtn.setAttribute("aria-expanded", String(!isHidden));
+        });
+
+        mobileMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+            mobileMenuBtn.setAttribute("aria-expanded", "false");
+          });
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            mobileMenu.classList.add("hidden");
+            mobileMenuBtn.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
 
    
 
