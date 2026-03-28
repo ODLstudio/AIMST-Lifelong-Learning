@@ -1063,8 +1063,13 @@
       };
 
       emailjs.send("service_muajyef", "template_nbxmp4m", formData)
+        // 2️⃣ Send auto-reply to USER
         .then(() => {
-          btn.innerText = "Submitted Successfully!";
+          return emailjs.send("service_muajyef", "template_atgrujf", formData);
+        })
+
+        .then(() => {
+          btn.innerText = "✔ Submitted!";
           document.getElementById("contact-form").reset();
         })
         .catch((error) => {
