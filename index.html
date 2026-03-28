@@ -1046,13 +1046,14 @@
       });
     });
 
-     emailjs.init("YOUR_PUBLIC_KEY");
+    emailjs.init("bMi8_CHD0NJyGs6gb");
 
     document.getElementById("contact-form").addEventListener("submit", function(e) {
-  e.preventDefault();
+      e.preventDefault();
 
       const btn = this.querySelector("button");
       btn.innerText = "Sending...";
+      btn.disabled = true;
 
       const formData = {
         name: document.getElementById("name").value,
@@ -1061,23 +1062,21 @@
         program: document.getElementById("program").value,
       };
 
-      // Send to FIRST email
-      emailjs.send("YOUR_SERVICE_ID", "TEMPLATE_1_ID", formData)
+      emailjs.send("service_muajyef", "template_nbxmp4m", formData)
         .then(() => {
-          // Send to SECOND email
-          return emailjs.send("YOUR_SERVICE_ID", "TEMPLATE_2_ID", formData);
-        })
-        .then(() => {
-          alert("Application submitted successfully!");
+          btn.innerText = "Submitted Successfully!";
           document.getElementById("contact-form").reset();
-          btn.innerText = "Submit Application";
         })
         .catch((error) => {
           console.error(error);
-          alert("Something went wrong. Please try again.");
           btn.innerText = "Submit Application";
+          btn.disabled = false;
+          alert("Something went wrong. Please try again.");
         });
     });
+
+    
+    
 
     // Element SDK initialization
     if (window.elementSdk) {
